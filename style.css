@@ -1,0 +1,88 @@
+.header {
+	height: 200px;
+	background: #FCF411;
+	border-bottom: 1px solid #D9D211;
+    max-width: 100%;
+	display: flex;
+	align-items: center;
+	padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.header img {
+	display: inline-block;
+	height: 100px;
+	margin-right: 1em;
+	vertical-align: middle;
+}
+
+.header-text h2 {
+	margin: 0;
+	font-size: 28px;
+}
+
+.header-text p {
+	margin: 0;
+	font-size: 14px;
+}
+
+.container {
+	max-width: 1200px;
+	margin: auto;
+	padding: 50px 50px;
+	background-color: #f7f7f7;
+	box-shadow: 2px 2px 5px #888888;
+}
+
+.container {
+    max-width: 1200px; /* Set the maximum width of the container */
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 20px; /* Add some padding to the container */
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse; /* Collapse the borders of the table cells */
+    margin-top: 20px; /* Add some margin between the container and the table */
+  }
+  
+  caption {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px; /* Add some margin below the caption */
+  }
+  
+  th {
+    text-align: left;
+    background-color: #f2f2f2; /* Set the background color of the table header cells */
+  }
+  
+  th, td {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd; /* Set the border style and color of the table cells */
+  }
+  
+  tfoot th {
+    text-align: right; /* Align the text in the footer cell to the right */
+  }
+  
+  tfoot td {
+    font-style: italic; /* Style the text in the footer cell with italics */
+    border-top: 2px solid #ddd; /* Add a thicker border on top of the footer cell */
+  }
+
+  .button {
+    background-color: #1a73e8; /* blue background */
+    color: #fff; /* white text */
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #0d47a1; /* darker blue background on hover */
+  }
+  

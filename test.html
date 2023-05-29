@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health Declaration Form</title>
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        .container {
+            width: 1500px;
+            margin: 0 auto;
+        }
+
+        
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            height: 200px;
+            background: #FCF411;
+            border-bottom: 1px solid #D9D211;
+            max-width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+        
+        .header-text {
+            margin-left: 20px;
+        }
+        
+        h2 {
+            margin: 0;
+            font-size: 22px;
+        }
+        
+        p {
+            margin: 0;
+            font-size: 14px;
+        }
+        
+        form {
+            border: 1px solid #ccc;
+            padding: 20px;
+            background-color: #F9F9F9;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        table {
+            width: 100%;
+        }
+        
+        td {
+            padding: 5px;
+            vertical-align: top;
+        }
+        
+        label {
+            font-weight: bold;
+        }
+        
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+        
+        #findDetails {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            background-color: #F9F9F9;
+        }
+        
+        #findDetails h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        #findDetails h4 {
+            margin: 0;
+        }
+        
+        #findID {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        
+        #find {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 14px;
+            text-align: center;
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        
+        #findName,
+        #findAge {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="https://tip.edu.ph"><img src="TIP.png" height="100px"></a>
+            <div class="header-text">
+                <h2>Technological Institute of the Philippines</h2>
+                <p>938 Aurora Blvd., Cubao, Quezon City<br>https://tip.edu.ph</p>
+            </div>
+        </div>
+        <form>
+            <h1>Health Declaration Form</h1>
+            <table>
+                <tr>
+                    <td colspan="2">By signing in this form, I hereby authorize the Technological Institute of the Philippines to collect and process the data indicated herein for the purpose of effecting control of the COVID-19 infection. I understand that my personal information is protected by RA 10173, Data Privacy Act of 2012, and that I am required by RA 11469, Bayanihan to Heal as One Act, to provide truthful information.</td>
+                </tr>
+                <tr>
+                    <td colspan="1">
+                        <label for="enterID">ID:</label>
+                        <input type="text" id="enterID" name="enterID" size="10" width: 100px; required>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1">
+                        <label for="enterName">Name:</label>
+                        <input type="text" id="enterName" name="enterName" size="60" required>
+                    </td>
+                    <td style="width: 0%;">
+                        <label for="enterDate">Date:</label>
+                        <input type="date" id="enterDate" name="enterDate" size="0" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="enterGender">Gender:</label>
+                        <input type="text" id="enterGender" name="enterGender" size="20" required>
+                    </td>
+                    <td style="width: 0%;">
+                        <label for="enterAge">Age:</label>
+                        <input type="number" id="enterAge" name="enterAge" size="0" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <label for="enterAddress">Complete Address:</label>
+                        <input type="text" id="enterAddress" name="enterAddress" size="100" required>
+                    </td>
+                </tr>
+            </table>
+            <button id="insert">INSERT</button>
+            <button id="update">UPDATE</button>
+            <button id="remove">REMOVE</button>
+        </form>
+    </div>
+
+    <div id="findDetails">
+        <h1>Find by ID</h1>
+        <h4>ID</h4>
+        <input id="findID" type="text" style="width: 200px;"> <br><br>
+        <button id="find">FIND</button>
+        <h3 id="findName" type="text"></h3>
+        <h3 id="findAge" type="number"></h3>
+        <h3 id="findGender" type="text"></h3>
+        <h3 id="findDate" type="text"></h3>
+        <h3 id="findAddress" type="text"></h3>
+
+    </div>
+
+    <script type="module">
+		// Import the functions you need from the SDKs you need
+		import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+		// TODO: Add SDKs for Firebase products that you want to use
+		// https://firebase.google.com/docs/web/setup#available-libraries
+	  
+		// Your web app's Firebase configuration
+		const firebaseConfig = {
+		  apiKey: "AIzaSyBb0hRoQzp3WYZda4bzjtdXRIim0KZi-Sk",
+		  authDomain: "mor-eniceo.firebaseapp.com",
+		  databaseURL: "https://mor-eniceo-default-rtdb.asia-southeast1.firebasedatabase.app",
+		  projectId: "mor-eniceo",
+		  storageBucket: "mor-eniceo.appspot.com",
+		  messagingSenderId: "584518808322",
+		  appId: "1:584518808322:web:f09f9118dd5282ad9a081b"
+		};
+	  
+		// Initialize Firebase
+		const app = initializeApp(firebaseConfig);
+
+		import {getDatabase, ref, get, set, child, update, remove}
+        from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js"
+		const db = getDatabase();
+
+        var enterID = document.querySelector("#enterID");
+        var enterName = document.querySelector("#enterName");
+        var enterAge = document.querySelector("#enterAge");
+        var enterGender = document.querySelector("#enterGender");
+        var enterDate = document.querySelector("#enterDate");
+        var enterAddress = document.querySelector("#enterAddress");
+
+        var findID = document.querySelector("#findID");
+        var findName = document.querySelector("#findName");
+        var findAge = document.querySelector("#findAge");
+        var findGender = document.querySelector("#findGender");
+        var findDate = document.querySelector("#findDate");
+        var findAddress = document.querySelector("#findAddress");
+      
+        var insertBtn = document.querySelector("#insert");
+        var updateBtn = document.querySelector("#update");
+        var removeBtn = document.querySelector("#remove");
+        var findBtn = document.querySelector("#find");
+
+        function InsertData() {
+            set(ref(db, "People/"+ enterID.value),{
+                Name: enterName.value,
+                ID: enterID.value,
+                Age: enterAge.value,
+                Gender: enterGender.value,
+                Date: enterDate.value,
+                Address: enterAddress.value
+            })
+            .then(()=>{
+                alert("Data added successfully");
+            })
+            .catch((error)=>{
+                alert(error);
+            });
+        }
+
+        function FindData() {
+            const dbref = ref(db);
+
+            get(child(dbref, "People/" + findID.value))
+            .then((snapshot)=>{
+                if(snapshot.exists()){
+                    findName.innerHTML = "Name: " + snapshot.val().Name;
+                    findAge.innerHTML = "Age: " + snapshot.val().Age;
+                    findGender.innerHTML = "Gender: " + snapshot.val().Gender;
+                    findDate.innerHTML = "Date: " + snapshot.val().Date;
+                    findAddress.innerHTML = "Address: " + snapshot.val().Address;
+                } else {
+                    alert("No data found");
+                }
+            })
+            .catch((error)=>{
+                alert(error)
+            })
+            
+        }
+
+        function UpdateData(){
+            update(ref(db, "People/"+ enterID.value),{
+                Name: enterName.value,
+                Age: enterAge.value,
+                Gender: enterGender.value,
+                Date: enterDate.value,
+                Address: enterAddress.value
+            })
+            .then(()=>{
+                alert("Data updated successfully");
+            })
+            .catch((error)=>{
+                alert(error);
+            });
+        }
+
+        function RemoveData(){
+            remove(ref(db, "People/"+ enterID.value))
+            .then(()=>{
+                alert("Data deleted successfully");
+            })
+            .catch((error)=>{
+                alert(error);
+            });
+        }
+
+        insertBtn.addEventListener('click', InsertData);
+        updateBtn.addEventListener('click', UpdateData);
+        removeBtn.addEventListener('click', RemoveData);
+        findBtn.addEventListener('click', FindData);
+
+    </script>  
+</body>
+</html>

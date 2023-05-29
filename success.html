@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Health Declaration Form</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div class="container">
+		<div class="header">
+			<a href="https://tip.edu.ph">
+				<img src="TIP.png" height="100px">
+			</a>
+			<div class="header-text">
+				<h2>Technological Institute of the Philippines</h2>
+				<p>938 Aurora Blvd., Cubao, Quezon City<br>https://tip.edu.ph</p>
+			</div>
+		</div>
+		<form>
+			<h1>Health Declaration Form</h1>
+			<table>
+				<tr>
+					<td colspan="2">By signing in this form, I hereby authorize the 
+						Technological Institute of the Philippines to collect and process the data indicated herein for the purpose of effecting control of the COVID-19 infection. 
+						I understand that my personal information is protected by RA 10173, Data Privacy Act of 2012, and that I am required by RA 11469, 
+						Bayanihan to Heal as One Act, to provide truthful information.</td>
+				</tr>
+				<tr>
+				<td colspan="1" style="width: 10%;"><label for="name">Name:</label>
+					<input type="text" id="enterName" name="name" size="60" required></td>
+				<td colspan="1" style="width: 0%;"><label for="date">Date:</label>
+					<input type="date" id="enterDate" name="date" size="0" required></td>
+				</tr>
+				<tr>
+				<td colspan="1" style="width: 10%;"><label for="gender">Gender:</label>
+					<input type="text" id="enterGender" name="gender" size="20" required></td>
+				<td colspan="1" style="width: 0%;"><label for="date">Age:</label>
+					<input type="number" id="enterAge" name="age" size="0" required></td>
+				</tr>
+				<tr>
+				<td colspan="4" style="width: 20%;"><label for="address">Complete Address: 
+					<input type="text" id="enterAddress" name="address" size="100" required></label></td>
+				
+				</tr>
+				<tr>
+				<td colspan="4"><label for="number">Contact number: 
+					<input type="tel" id="enterNumber" name="number" size="100"></input></label></td>
+				</tr>
+				<tr>
+				<td colspan="4"><label for="Status">Health Status: "sick" or "not " 
+					<input type="text" id="enterStatus" name="Status" size="100"></input></label></td>
+				</tr>
+				<tr>
+					<td colspan="2"><label for="waiver"> I agree to participate in this trial test for the prototype for improvement of the current health declaration process at the Technological Institute of the Philippines regarding COVID-19.<br>
+
+						I agree to wholeheartedly participate in this testing procedure.<br>
+						
+						By clicking the SUBMIT button, I hereby certify that the information provided is true and correct.</label></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<button id="submit">submit</button>
+					</td>
+				</tr>
+			</table>
+		  </form>
+	</div>
+
+	<div id="findDetails">
+        <h1>Find by name</h1>
+        <h4>Name</h4>
+        <input id="findName" type="text"> <br><br>
+        <button id="find">FIND</button>
+        <h3 id="findName" type="text"></h3>
+        <h3 id="findAge" type="number"></h3> <br><br>
+    </div>
+
+	<script type="module">
+		// Import the functions you need from the SDKs you need
+		import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+		// TODO: Add SDKs for Firebase products that you want to use
+		// https://firebase.google.com/docs/web/setup#available-libraries
+	  
+		// Your web app's Firebase configuration
+		const firebaseConfig = {
+		  apiKey: "AIzaSyBb0hRoQzp3WYZda4bzjtdXRIim0KZi-Sk",
+		  authDomain: "mor-eniceo.firebaseapp.com",
+		  databaseURL: "https://mor-eniceo-default-rtdb.asia-southeast1.firebasedatabase.app",
+		  projectId: "mor-eniceo",
+		  storageBucket: "mor-eniceo.appspot.com",
+		  messagingSenderId: "584518808322",
+		  appId: "1:584518808322:web:f09f9118dd5282ad9a081b"
+		};
+	  
+		// Initialize Firebase
+		const app = initializeApp(firebaseConfig);
+		import {getDatabase, ref, get, set, child, update, remove}
+        from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js"
+		const db = getDatabase();
+
+		// Retrieve form elements
+        var enterDate = document.querySelector("#enterDate");
+        var enterName = document.querySelector("#enterName");
+        var enterAge = document.querySelector("#enterAge");
+		var enterAddress = document.querySelector("#enterAddress");
+		var enterGender = document.querySelector("#enterGender");
+		var enterNumber = document.querySelector("#enterNumber");
+		var enterStatus = document.querySelector("#enterStatus");
+
+		var findName = document.querySelector("#findName");
+		var findAge = document.querySelector("#findAge");
+		var findStatus = document.querySelector("findStatus");
+		var findDate = document.querySelector("findDate");
+
+		var submitBtn = document.querySelector("#submit");
+		var findBtn = document.querySelector("#find");
+
+
+		function InsertData() {
+            set(ref(db, "Students/"+ enterName.value),{
+                Name: enterName.value,
+                Address: enterAddress.value,
+                Age: enterAge.value,
+				Gender: enterGender.value,
+				Date:enterDate.value,
+				Number: enterNumber.value,
+				Status: enterStatus
+            })
+            .then(()=>{
+                alert("Data added successfully");
+            })
+            .catch((error)=>{
+                alert(error);
+            });
+        }
+
+		function FindData() {
+            const dbref = ref(db);
+
+            get(child(dbref, "Students/" + findName.value))
+            .then((snapshot)=>{
+                if(snapshot.exists()){
+                    findName.innerHTML = "Name: " + snapshot.val().Name;
+                    findAge.innerHTML = "Age: " + snapshot.val().Age;
+					findStatus.innerHTML = "Status: " + snapshot.val().Status;
+					findDate.innerHTML = "Date: " + snapshot.val().Date;
+                } else {
+                    alert("No data found");
+                }
+            })
+            .catch((error)=>{
+                alert(error)
+            })
+            
+        }
+
+		
+
+
+        submitBtn.addEventListener('click', InsertData);
+		findBtn.addEventListener('click', FindData );
+
+
+    </script>
+</body>
+</html>
